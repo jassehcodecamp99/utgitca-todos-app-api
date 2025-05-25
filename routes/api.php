@@ -30,15 +30,6 @@ Route::post('/login', function (Request $request) {
     return response()->json(['message' => 'Invalid credentials'], 401);
 });
 
-Route::prefix('/todo-items')->middleware('auth:sanctum')->controller(TodoItemController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store')->name('todo-items');
-    // Route::get('/show', 'show')->name('todo-items.show');
-    Route::post('/update/{todoItem}', 'update')->name('todo-items.update');
-    Route::delete('/destroy/{todoItem}', 'destroy')->name('todo-items.destroy');
-});
-
-
 Route::post('/register', function (Request $request) {
     // return "ddgdgd";
     $validatedData = $request->validate([
@@ -66,6 +57,13 @@ Route::post('/logout', function (Request $request) {
     return response()->json(['message' => 'Logged out successfully']);
 })->middleware('auth:sanctum');
 
+Route::prefix('/todo-items')->middleware('auth:sanctum')->controller(TodoItemController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store')->name('todo-items');
+    // Route::get('/{todoItem}', 'show')->name('todo-items.show');
+    Route::post('/update/{todoItem}', 'update')->name('todo-items.update');
+    Route::delete('/destroy/{todoItem}', 'destroy')->name('todo-items.destroy');
+});
 
 
 Route::post('/tokens/create', function (Request $request) {

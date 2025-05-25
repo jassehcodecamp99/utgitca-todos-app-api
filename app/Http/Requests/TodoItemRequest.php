@@ -38,6 +38,7 @@ class TodoItemRequest extends FormRequest
         $todoItem->title = $this->title;
         $todoItem->description = $this->description;
         $todoItem->due_date = $this->due_date;
+        $todoItem->user_id = auth()->id();
 
         return $todoItem->save();
     }
