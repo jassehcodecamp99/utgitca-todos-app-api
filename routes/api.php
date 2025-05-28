@@ -25,6 +25,7 @@ Route::post('/login', function (Request $request) {
             'status' => 'success',
             'message' => 'Login successful',
             'token' => $token->plainTextToken,
+            'user' => $user->select('name', 'email')->first(),
         ]);
     }
     return response()->json(['message' => 'Invalid credentials'], 401);
